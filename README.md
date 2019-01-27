@@ -22,7 +22,7 @@ According to a recent [announcement](https://blog.flickr.net/en/2018/11/01/chang
 
 - Download the last version of the script directly from [here](https://raw.githubusercontent.com/tagspaces/flickr-export-organizer/master/export-organizer.js) or from the [release section](https://github.com/tagspaces/flickr-export-organizer/releases) of this project.
 
-- Extract all files from all the zip exports in a  sub folder called `flickerData`.
+- Extract all files from all the zip exports in a  sub folder called `flickrData`.
 
 - Under Windows you can right click on `export-organizer.js` and choose Open With... (path_to_nodejs\node.exe)
 

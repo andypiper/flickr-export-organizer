@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+var fs = require('graceful-fs');
 var path = require('path');
 
 var jsonDir = process.env.npm_package_config_jsonDir || 'flickrData';
 var imgDir = process.env.npm_package_config_imgDir || 'flickrData';
 var exportDir = process.env.npm_package_config_exportDir || 'flickrExport';
-console.log('You json directory of Flickr export:' + jsonDir);
-console.log('You data (Photos + Video) directory of Flickr export:' + imgDir);
-console.log('You export directory:' + exportDir);
+console.log('You json directory of Flickr export: ' + jsonDir);
+console.log('You data (Photos + Video) directory of Flickr export: ' + imgDir);
+console.log('You export directory: ' + exportDir);
 console.log('Exporting please wait...');
 
 var albums;
@@ -27,6 +27,7 @@ if (filenames) {
             // console.log(file);
             var flickrId = getFlickrId(file);
 
+            // TODO: possible bug in how the photo names are being handled
             var jsonFile = path.format({
                 dir: jsonDir,
                 base: 'photo_' + flickrId + '.json'
@@ -46,6 +47,7 @@ if (filenames) {
                     var album = checkInAlbums(flickrId);
                     var exportPath;
                     if (album && album.title) { // create dir based on Flickr Album
+                        // TODO: logic to fix and normalise directory names
                         exportPath = path.format({
                             dir: exportDir,
                             base: album.title
@@ -74,7 +76,7 @@ if (filenames) {
                     try {
                         fs.copyFileSync(oldFile, newFile);
                     } catch (e) {
-                        console.error('copy photo error:', e);
+                        console.error('copy photo error: ', e);
                     }
 
                     // create .ts folder
@@ -134,7 +136,7 @@ if (filenames) {
                     try {
                         fs.writeFileSync(tsJson, JSON.stringify(tsObj), 'utf8');
                     } catch (e) {
-                        console.error('write json file:', e);
+                        console.error('write json file: ', e);
                     }
                     /* fs.writeFile(tsJson, JSON.stringify(tsObj), function (err) { // file will be written at the end of the script (possible data inconsistency)
                         if (err) {
